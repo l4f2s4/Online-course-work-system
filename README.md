@@ -15,4 +15,4 @@ loads database with the following command:
 
 *php bin/console doctrine:fixtures:load
 
-default user:admin@gmail.com and default password admin
+default user:admin@gmail.com and default password:admin
