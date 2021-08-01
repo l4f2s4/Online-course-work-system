@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user.title=="administrator" or app.user.title=="superadmin" %}
+  {% include('superuser/adminnavbar.html.twig') %}
+
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+                    <section class="purchase__card_section">
+                      <p><span class="badge bg-secondary mr-1">{{ findsubject |length }}</span>Subject Registered</p>
+                    </section>
+                  </div>
+
+
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-5">
+                    <section class="purchase__card_section d-flex align-item-ends">
+                        <p><span class="badge bg-red mr-1 bold">{{ CT |length }}</span>Class Registered</p>
+                    </section>
+                  </div>
+
+                   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                          <section class="purchase__card_section">
+                                   <a href="{{path('departmentSubject')}}" class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                        Add subject
+                                    </a>
+                           </section>
+                   </div>
+                </div>
+              </div>
+            </div>
+             <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8">
+              <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Name</th>
+                          <th class="text-left">Department</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in CT %}
+                            <tr>
+                              <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.name }}</td>
+                              <td class="text-left">{{ show.dept }}</td>
+                               <td >
+                                 <a href="/user/dashboard/available/class/{{ show.Un}}/subject/All" class="mdc-button text-green text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                   View Subject
+                                </a>
+                             </td>
+                            </tr>
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                 </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+
+
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+              <div class="mdc-card d-flex flex-column">
+                <div class="mdc-layout-grid__inner flex-grow-1">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3"></div>
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10 d-flex align-item-center flex-column">
+                    <h2 class="mdc-card__title mdc-card__title--large text-center mt-2 mb-2">Subject Registered</h2>
+                    <div id="currentBalanceCircle" class="w-100">
+                       {% if sub|length !=0 %}
+                         {% for t in sub %}
+                              <div class="mdc-card py-3 pl-4 d-flex flex-row align-item-center">
+                                <i class="material-icons mdc-theme--primary">note</i>
+                                <div class="text-wrapper text-center pl-2">
+                                  <p class="mdc-card__title mdc-card__title--large text-red text-center mt-2 mb-2">{{t.name}}</p>
+                                </div>
+                              </div>
+                         {% endfor %}
+                       {% else %}
+                         <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                                <i class="material-icons mdc-theme--primary">note</i>
+                                <div class="text-wrapper text-center pl-3">
+                                  <p class="font-weight-normal mb-0 mt-0">No Subject Registered</p>
+                                </div>
+                         </div>
+                       {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3"></div>
+                </div>
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                   {% if sub|length >= 2 %}
+                        <section class="mdc-card__action-footer mt-4 bg-red w-100">
+                          <div class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                                  <a href="{{ path('add_result')}}" class="mdc-button mdc-button--unelevated big-round-corner-button mt-2 mb-1" data-mdc-auto-init="MDCRipple">
+                                     View All Subject
+                                  </a>
+                          </div>
+                        </section>
+                   {% else %}
+                       <section class="mdc-card__action-footer mt-4 bg-red w-100">
+                          <div class="col" data-mdc-auto-init="MDCRipple">
+                             <p class="font-weight-normal mb-0 mt-0 bold">Academic Performance Evaluation</p>
+                          </div>
+                        </section>
+                   {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+</div>
+  <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+{% endif %}
+{% endblock %}

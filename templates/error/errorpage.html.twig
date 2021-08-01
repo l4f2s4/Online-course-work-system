@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+   <div class="page-wrapper">
+      <main class="content-wrapper error-page p-0">
+        <div class="mdc-layout-grid">
+					<div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+							<div class="mdc-card">
+								<section class="mdc-card__primary error-header">
+									<h1 class="mdc-typography--display2 mb-0">Access restricted</h1>
+								</section>
+                <section class="mdc-card__primary info">
+                  <p>To view this page you must  Login</p>
+                  <a href="{{path('main_engine')}}" class="mdc-button mdc-button--raised primary-filled-button  mb-0" data-mdc-auto-init="MDCRipple">login</a>
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+      </main>
+    </div>
+
+{% endblock %}

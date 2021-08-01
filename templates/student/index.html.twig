@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user.title == "superadmin" or app.user.title == "administrator" %}
+      {% include('superuser/adminnavbar.html.twig') %}
+
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                      <p> Student registered
+                      <span class="mdc-theme--primary text-lowercase bold">per <span class="badge bg-primary">year of study</span> </span>
+                      </p>
+                    </section>
+                  </div>
+
+                   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                    <section class="purchase__card_section">
+                         <a href="{{ path('register_student') }}" class="mdc-button mdc-button--raised primary-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                             Add Student
+                         </a>
+                     </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+               {% if findyear1 != 0 %}
+
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                      <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                        <div class="mdc--tile mdc--tile-primary rounded">
+                          <i class="material-icons text-white icon-md">school</i>
+                        </div>
+                        <div class="text-wrapper pl-1">
+
+                              <span class="badge bg-success">First Year Students</span>
+
+                              <a href="/engine/admin/student/content/yos/1" class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                                   view
+                              </a>
+                        </div>
+                      </div>
+                    </div>
+                   {% endif %}
+                  {% if findyear2 != 0 %}
+
+                   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                      <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                        <div class="mdc--tile mdc--tile-primary rounded">
+                          <i class="material-icons text-white icon-md">school</i>
+                        </div>
+                        <div class="text-wrapper pl-1">
+                            <span class="badge bg-success">Second Year Students</span>
+                            <a href="/engine/admin/student/content/yos/2" class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                                   view
+                              </a>
+                        </div>
+                      </div>
+                    </div>
+                   {% endif %}
+                  {% if findyear3 != 0 %}
+
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                      <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                        <div class="mdc--tile mdc--tile-primary rounded">
+                          <i class="material-icons text-white icon-md">school</i>
+                        </div>
+                        <div class="text-wrapper pl-1">
+                             <span class="badge bg-success">Third Year Students</span>
+                             <a href="/engine/admin/student/content/yos/3" class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                                   view
+                              </a>
+                        </div>
+                      </div>
+                    </div>
+                   {% endif %}
+                   {% if findyear4 != 0 %}
+
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                      <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                        <div class="mdc--tile mdc--tile-primary rounded">
+                          <i class="material-icons text-white icon-md">school</i>
+                        </div>
+                        <div class="text-wrapper pl-1">
+                            <span class="badge bg-success">Graduated Students</span>
+                            <a href="/engine/admin/student/content/yos/4" class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                                   view
+                              </a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+               {% if findyear1 == 0 and findyear2 == 0 and findyear3 == 0 and findyear4 == 0 %}
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                  <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                    <div class="mdc--tile mdc--tile-danger rounded">
+                      <i class="material-icons text-white icon-md">school</i>
+                    </div>
+                    <div class="text-wrapper pl-1">
+                         <span class="text-red">No student registered</span>
+                    </div>
+                  </div>
+                </div>
+               {% endif %}
+            </div>
+          </div>
+        </div>
+      </main>
+</div>
+{% endif %}
+{% endblock %}

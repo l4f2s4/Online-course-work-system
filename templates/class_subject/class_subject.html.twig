@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user %}
+  {% include('superuser/adminnavbar.html.twig') %}
+
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <!-- start main page -->
+      <main class="content-wrapper">
+       <!-- Profile intro -->
+         <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10">
+                    <section class="purchase__card_section">
+                      <p>
+                       <i class="material-icons mdc-theme--primary mr-1">AS</i>  <span class="bold">Add Semester One Subject To {{ct}}</span>
+                      </p>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+       <!-- end intro -->
+
+       <!-- start form -->
+             <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+               <section class="mdc-card__supporting-text">
+               <!-- form start using modal -->
+                <form  action="/class/action/subject/{{ct}}" method="post" class="mt-5">
+                  <div class="mdc-layout-grid__inner">
+                   <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-7-desktop">
+                        <div class="mdc-text-field mdc-text-field--box text-secondary w-100" >
+                             <select  class="mdc-text-field__input" id="class" name="subject">
+                                  <option value="" selected>Select subject</option>
+                                   {% for course in findsubject %}
+                                         <option value="{{ course.name }}">{{ course.name }}</option>
+                                   {% endfor %}
+                             </select>
+                        </div>
+                   </div>
+                    <!-- start teacher field -->
+                   <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-5-desktop">
+                      <div class="mdc-text-field mdc-text-field--box text-secondary w-100" >
+                             <select  class="mdc-text-field__input" id="dept" name="teacher">
+                                  <option  value="" selected>Select Teacher</option>
+                                   {% for dept in findteacher %}
+                                         <option value="{{ dept.username }}">{{ dept.username }}</option>
+                                   {% endfor %}
+                             </select>
+
+                        </div>
+                   </div>
+                     <!-- start teacher field -->
+                   <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-5-desktop">
+                      <div class="mdc-text-field mdc-text-field--box text-secondary w-100" >
+                             <div id="tf-box-leading-example" class="mdc-text-field mdc-text-field--box mdc-text-field--with-leading-icon w-100">
+                            <input required  type="text" name="year" placeholder="Enter subject year eg. subject3 for third year" class="mdc-text-field__input" aria-controls="name-validation-message">
+                            <div class="mdc-text-field__bottom-line"></div>
+                          </div>
+                        </div>
+                   </div>
+
+                    <!-- submit action -->
+                     <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-12-desktop">
+                          <p class="align-item-center">
+                                   <button type="submit" class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0 mt-2" data-mdc-auto-init="MDCRipple">
+                                        Add
+                                    </button>
+                               </p>
+                     </div>
+                    <!-- end submit action -->
+
+                   </form>
+                   <!-- end form -->
+                 </section>
+                 </div>
+                 </div>
+
+         <!-- end form -->
+
+      </main>
+      <!-- end main page -->
+  </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user %}
+ {% include('superuser/adminnavbar.html.twig') %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+      <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-primary mr-1">2</span>
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ ct }}</span> Semesters subjects
+                       </p>
+                    </section>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!--end-->
+
+            <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Semester Name</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td class="text-left">Semester one</td>
+                              <td>
+                              <a href="/user/dashboard/available/class/semester/{{idn}}/subject/All" class="btn btn-primary text-white" data-mdc-auto-init="MDCRipple">View</a>
+                              </td>
+                            </tr>
+                             <tr>
+                              <td>2</td>
+                              <td class="text-left">Semester Two</td>
+                              <td>
+                              <a href="/user/dashboard/available/class/semester/two/{{idn}}/subject/All" class="btn btn-primary text-white" data-mdc-auto-init="MDCRipple">View</a>
+                              </td>
+                            </tr>
+                        </tbody>
+                      </table>
+                 </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+      </main>
+</div>
+        <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+
+{% endif %}
+
+{% endblock %}

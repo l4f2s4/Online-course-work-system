@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user %}
+   {% if app.user.title == "administrator" or app.user.title == "superadmin" %}
+      {% include('superuser/adminnavbar.html.twig') %}
+  {% else %}
+    {% include('teacher/teachernavbar.html.twig') %}
+  {% endif %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+      <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-secondary mr-1">{{ rn |length }}</span>Result  For Subject
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ cm }}</span>
+                       </p>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+           {% if rn|length != 0%}
+            <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Subject Name</th>
+                          <th >Taught By</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in rn %}
+                            <tr>
+                              <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ cm }} &nbsp; {{ show.syear }}</td>
+                              <td >{{ show.Ny }}</td>
+                              <td>
+                              <a href="/published/result/ca/{{ show.ID }}/{{ show.syear }}"
+                                  class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                  view
+                              </a>
+                              </td>
+                            </tr>
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                 </div>
+              </div>
+              </div>
+            </div>
+            <!--end table -->
+            {% else %}
+               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card " style="background:transparent;">
+                      <p class="pl-3 text-center text-green mt-3 mb-3">
+                         No student involved to take this subject
+                       </p>
+               </div>
+             </div>
+            {% endif %}
+      </main>
+</div>
+        <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+
+{% endif %}
+
+{% endblock %}

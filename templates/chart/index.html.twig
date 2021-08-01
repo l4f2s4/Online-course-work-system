@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Graphically Evaluation Report {% endblock %}
+{% block body %}
+{% if app.user %}
+{% include('superuser/adminnavbar.html.twig') %}
+    <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+
+                           <div class="mdc-card" style="background:lightgrey;height:auto;">
+								<section class="mdc-card__primary">
+									<h1 class="mdc-card__title mdc-card__title--large">CA Average Performance Per Subject</h1>
+								</section>
+								<section  >
+                                  {{ render_chart(chart) }}
+								</section>
+							</div>
+					</div>
+		  </div>
+		</div>
+	  </main>
+	</div>
+
+{% endif %}
+{% endblock %}

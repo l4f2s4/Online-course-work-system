@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+ <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+         <div class="mdc-layout-grid" >
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card " style="background:#009f4;">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                    <section class="purchase__card_section">
+                      <p>
+                       <i class="badge bg-primary mr-1">important</i>
+                      </p>
+                    </section>
+                  </div>
+
+                   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-7">
+                       <form method="post">
+                           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                            <div class="input-group mt-3">
+
+                              <input type="text"  class="form-control"  name="regno" placeholder="Enter registration no" autocomplete="regno" required>
+                              <select  class="form-control" id="search" name="search" required>
+                                  <option  value="" selected>Select Class Name</option>
+                                  {% if findcourse | length != 0 %}
+                                   {% for dept in findcourse %}
+                                         <option value="{{ dept.name }}">{{ dept.name }}</option>
+                                   {% endfor %}
+                                   {% else%}
+                                        <option value="">course not available</option>
+                                   {% endif %}
+                             </select>
+                               <select  class="form-control" id="semester" name="semester" required>
+                                  <option  value="" selected>Select Semester</option>
+                                  <option value="semester1"> semester one</option>
+                                  <option value="semester2"> semester two</option>
+                             </select>
+
+                               </div>
+                                 <button  type="submit" class="btn btn-primary mt-3">
+                                    <i class="material-icons">search</i>
+                                  </button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                    <section class="purchase__card_section">
+                         <p>
+                       <i class="badge bg-success mr-1" mb-3>Subject Register</i>
+                      </p>
+                          <a href="{{path('main_engine')}}" class="mdc-button mdc-button--raised primary-filled-button  mb-0" data-mdc-auto-init="MDCRipple">
+                                Back Home
+                          </a>
+
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+       <!-- end intro -->
+        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card " style="background:transparent;">
+
+                      <p class="pl-3 text-center mt-3 mb-3 text-green">
+                           To register subject is important than anything,please find you course and then register subject.
+                       </p>
+                       <p class="pl-3 text-red text-center mt-3 mb-3">
+                         {% for messages in app.flashes('searchpage') %}
+                                    {{ messages}}
+                             {% endfor %}
+                       </p>
+               </div>
+             </div>
+        </main>
+</div>
+
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+       {% if pt |length != 0 %}
+              <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-primary mr-1">CA</span>For
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ cm }}  <span class="badge bg-secondary mr-1">{{year}}</span> </span>
+                       </p>
+                    </section>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+        {% else  %}
+              <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-danger mr-1">Alert</span>Incorrect Token
+
+                       </p>
+                    </section>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+            {% endif %}
+
+
+           {% if pt|length != 0 %}
+               <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+             <div class="mdc-card table-responsive" style="display:block;overflow-x:auto;">
+                <div class="card" style="padding-top:3%;overflow-x:auto;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th class="text-left">Registration No.</th>
+                          <th >Name</th>
+                          <th >Test1 </th>
+                          <th >Test2</th>
+                          <th > Individual Assignment 1</th>
+                          <th >Individual Assignment 2</th>
+                          <th >Group Work</th>
+                          <th > Total </th>
+                          <th class="text-left">Percentage(%)</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in pt %}
+                            <tr>
+                              <td class="text-left">{{ show.regno }}</td>
+                              <td >{{ show.name }}</td>
+                              <td >{{ show.test1 }}</td>
+                              <td >{{ show.test2 }}</td>
+                              <td >{{ show.individual1 }}</td>
+                              <td >{{ show.individual2 }}</td>
+                              <td >{{ show.group_work }}</td>
+                              <td >{{ show.total }}</td>
+                              <td >{{ show.percent }}</td>
+                              <td><div href="#" data-bs-toggle="modal" data-bs-target="#sign_ca"  class="col mdc-button mdc-button--raised big-filled-button text-lowercase mb-0 mt-0" data-mdc-auto-init="MDCRipple">Sign CA</div></td>
+                                    <!-- start -->
+      <div class="modal custom-modal fade col-6" id="sign_ca" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+                       <div class="mdc-layout-grid">
+                            <div class="mdc-layout-grid__inner">
+                              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                                   <div class="mdc-card">
+                                        <div class="mdc-layout-grid__inner">
+                                           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                                            <section class="purchase__card_section align-item-center">
+                                                      <span class="badge bg-blue  align-item-center text-uppercase">Verify Your CA</span>
+                                                      <br/>
+
+                                                      <span class="mdc-card__title  mdc-card__title--middle">Are you sure,this is your CA?</span>
+
+                                                </section>
+
+                                            </div>
+                                            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-5">
+                                             <section class="purchase__card_section">
+                                                   <a href="/result/{{token}}"  class="btn btn-primary btn-md mb-0 mt-2" data-mdc-auto-init="MDCRipple">
+                                                       agree
+                                                    </a>
+                                                </section>
+                                                </div>
+                                                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+                                                  <section class="purchase__card_section">
+                                                   <a href="/student/problem/reported/{{token}}"  class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0 mt-2" data-mdc-auto-init="MDCRipple">
+                                                        Disagree
+                                                    </a>
+                                                </section>
+                                               </div>
+                                        </div>
+                                   </div>
+                              </div>
+                            </div>
+                       </div>
+                 </div>
+          </div>
+        </div>
+      </div>
+       </tr>
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                 </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+            {% else %}
+             <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card " style="background:transparent;">
+                      <p class="pl-3 text-danger text-center mt-3 mb-3">
+                         Incorrect Token Provided Or Expired.
+                       </p>
+               </div>
+             </div>
+
+            <!--end-->
+
+            {% endif %}
+            <!--end if -->
+      </main>
+</div>
+{% endblock %}

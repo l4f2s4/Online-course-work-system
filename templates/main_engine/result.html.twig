@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user %}
+   {% if app.user.title == "administrator" or app.user.title == "superadmin" %}
+      {% include('superuser/adminnavbar.html.twig') %}
+  {% else %}
+    {% include('teacher/teachernavbar.html.twig') %}
+  {% endif %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                    {% if app.user.title == "administrator" or app.user.title == "superadmin" %}
+                        <p><span class="badge bg-secondary mr-1">{{ findc |length }}</span>Subject
+                          <span class="pl-4"><a href="{{path('chart')}}" class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                        View Performance Chart
+                                    </a></span></p>
+                     {% else %}
+                        <p><span class="badge bg-secondary mr-1">{{ ST |length }}</span>Subject</p>
+                      {% endif %}
+                    </section>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Name</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                 {% if app.user.title == "administrator" or app.user.title == "superadmin" %}
+                   {% for temp,show in findc %}
+                        <tr>
+                             <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.name }}</td>
+                              <td>
+                                 <a href="/published/result/year/ca/{{ show.ID }}" class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                   view  ca
+                                </a>
+                             </td>
+                        </tr>
+                  {% endfor %}
+                    <!-- end for loop -->
+                    {% else %}
+                      {% for temp,show in ST %}
+                        <tr>
+                             <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.name }} {{show.syear}}</td>
+                              <td>
+                                 <a href="/published/result/ca/{{show.ID}}/{{ show.syear }}" class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                   Add  CA
+                                </a>
+                             </td>
+                        </tr>
+                  {% endfor %}
+                    <!-- end for loop -->
+                    {% endif %}
+                     </tbody>
+                      </table>
+                      </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+        </div>
+      </main>
+</div>
+     <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+{% endif %}
+{% endblock %}

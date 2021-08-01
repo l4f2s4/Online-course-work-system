@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome To SRMS Forgot Password Area{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-6 col-8 col-lg-4 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center text-black">Enter your email to get a password reset link</h5>
+            <form class="form-signin" method="post">
+                 {% for messages in app.flashes('verify') %}
+		     		  <p class="text-center text-danger">
+                            {{ messages }}
+					  </p>
+				    {% endfor %}
+
+              <div class="form-label-group">
+                <input type="email"   name="kind" id="inputEmail" placeholder="Enter email" class="form-control"  required autofocus>
+                <label for="inputEmail">Email Address</label>
+              </div>
+              <button class="form-control btn btn-lg btn-success btn-block text-uppercase" type="submit">Find Account</button>
+               <hr class="my-4">
+                <a href="{{path('main_engine')}}" class="form-control btn btn-lg btn-primary btn-block text-uppercase">Login</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--end reset builder -->
+{% endblock %}
+

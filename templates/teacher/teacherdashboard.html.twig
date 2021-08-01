@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user.title == "teacher" %}
+  {% include('teacher/teachernavbar.html.twig') %}
+
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                    <section class="purchase__card_section">
+                      <p>Welcome
+                      <span class="mdc-theme--primary text-uppercase bold">{{ app.user.username }}</span>
+                      </p>
+                    </section>
+                  </div>
+                   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-5">
+                        <section class="purchase__card_section">
+                          <p>
+                             <span class="mdc-theme--secondary text-lowercase bold">
+                               subject assigned
+                             </span>
+                           </p>
+                        </section>
+                    </div>
+
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+                    <section class="purchase__card_section  align-item-ends">
+                        department <span class="badge bg-primary text-lowercase">{{finddept}}</span>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+              {% if findsubject |length != 0 %}
+                {% for t in findsubject %}
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                  <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                    <div class="mdc--tile mdc--tile-primary rounded">
+                      <i class="material-icons text-white icon-md">note</i>
+                    </div>
+                    <div class="text-wrapper pl-1">
+
+                          <span class="badge bg-primary">{{ t.name }} {{ t.syear }}</span>
+                          <span class="badge text-red ">
+                          {% if t.semester == 'semester1' %}
+                           semester one subject
+                          {% else %}
+                            semester two subject
+                          {% endif %}
+                          </span>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+               {% else %}
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                  <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                    <div class="mdc--tile mdc--tile-success rounded">
+                      <i class="material-icons text-white icon-md">note</i>
+                    </div>
+                    <div class="text-wrapper pl-1">
+                          <h3 class="mdc-typography--display1  text-red mb-1">no subject assigned to you </h3>
+                    </div>
+                  </div>
+                </div>
+               {% endif %}
+            </div>
+          </div>
+        </div>
+      </main>
+</div>
+{% endif %}
+{% endblock %}

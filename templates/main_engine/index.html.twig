@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+    <div class="col-sm-12 col-md-12 col-12 col-lg-8 mx-auto">
+         <div class="card card-signin my-5" >
+           <div class="card-body">
+              <h4 class="card-title text-center text-primary font-weight-bold">
+              University Symfony System</h4>
+              <h6 class="text-center"> Welcome to  Online Coursework Sign System (OCSS) </h6>
+                <div class="mt-4">
+                  <p>
+                      <b style="display:block;"> Students </b>
+
+                      <span style="display:block;text-indent:15px;" >* Register for Subject online based on course </p>
+
+                     <span style="display:block;text-indent:15px;" > * View coursework and sign </span>
+                       <span class="text-red" style="display:block;text-indent:15px;" > coursework  sent via student email </span>
+                  </p>
+                    <p>
+                        <b style="display:block;">   Teaching Staff </b>
+                         <span style="display:block;text-indent:15px;" >  * Publish Coursework Results</span>
+                          <br/>
+                         <span style="display:block;text-indent:15px;" >  * Correct Coursework Results After Published </span>
+                    </p>
+                 </div>
+              </div>
+           </div>
+         </div>
+
+      <div class="col-sm-8 col-md-6 col-8 col-lg-4 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Login</h5>
+            <form class="form-signin" method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+              <div class="form-label-group">
+                <input type="email" value="{{ last_username }}"  name="email" id="inputEmail" placeholder="Enter email" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputEmail">Email address</label>
+              </div>
+
+              <div class="form-label-group">
+               <input type="password" name="password" id="inputPassword" placeholder="Enter password" class="form-control" autocomplete="current-password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+              <div class="mt-2">
+                  <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+              </div>
+              <button class="form-control btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+              <hr class="my-4">
+                <a href="{{path('external')}}" class="form-control btn btn-lg btn-forgot btn-block text-lower">forgot password?</a>
+
+                <a href="{{path('course_register')}}" class="form-control btn btn-lg btn-success btn-block text-lower mt-4">Student subject  register</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--end login builder -->
+{% endblock %}

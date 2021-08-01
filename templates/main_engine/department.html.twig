@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user.title=="administrator" or app.user.title=="superadmin" %}
+  {% include('superuser/adminnavbar.html.twig') %}
+
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+      <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                      <p><span class="badge bg-secondary mr-1">{{ department |length }}</span>Department Registered</p>
+                    </section>
+                  </div>
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                          <section class="purchase__card_section">
+                                   <a href="{{path('departmentAdd')}}" class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                        Add Department
+                                    </a>
+                           </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+
+            <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Department Name</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in department %}
+                            <tr>
+                              <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.name }}</td>
+                              <td>
+                              <a href="/{{ show.id }}/edit/department/name" class="col mdc-button" data-mdc-auto-init="MDCRipple"><i class="material-icons text-green">edit</i></a>
+                              <a href="/engine/delete/Department/show/{{show.id}}" class="col mdc-button" data-mdc-auto-init="MDCRipple"><i class="material-icons text-red">delete</i></a>
+                              <a href="/engine/admin/department/member/teacher/{{show.id}}" class="col mdc-button" data-mdc-auto-init="MDCRipple"><i class="material-icons text-blue">person</i></a>
+
+                              </td>
+
+                            </tr>
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                      </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+      </main>
+</div>
+        <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+
+{% endif %}
+
+{% endblock %}

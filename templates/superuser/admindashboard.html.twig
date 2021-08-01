@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user.title=="administrator" or app.user.title=="superadmin" %}
+  {% include('superuser/adminnavbar.html.twig') %}
+
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                    <section class="purchase__card_section">
+                      <p>Welcome
+                      <span class="mdc-theme--primary text-uppercase bold">{{ app.user.username }}</span>
+                      </p>
+                    </section>
+                  </div>
+                   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-5">
+                        <section class="purchase__card_section">
+                          <p>
+                            you are super user with <i class="material-icons mdc-theme--secondary">verified_user</i>
+                             <span class="mdc-theme--secondary text-uppercase bold">
+                             ALL  PRIVILEGE
+                             </span>
+                           </p>
+                        </section>
+                    </div>
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+                    <section class="purchase__card_section d-flex align-item-ends">
+                      {% if app.user.title== "superadmin" %}
+                         <i class="material-icons mdc-theme--primary text-lowercase">verified_user</i> System Administrator
+                      {% else %}
+                        <i class="material-icons mdc-theme--primary text-lowercase">verified_user</i> {{app.user.title}}
+                      {% endif %}
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8">
+              <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                  <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                    <div class="mdc--tile mdc--tile-danger rounded">
+                      <i class="material-icons text-white icon-md">widgets</i>
+                    </div>
+                    <div class="text-wrapper pl-1">
+                      {% if finddept| length != 0 %}
+                        <h3 class="mdc-typography--display1 font-weight-bold mb-1">{{ finddept | length }}</h3>
+                      {% else %}
+                         <h3 class="mdc-typography--display1 font-weight-bold mb-1">0</h3>
+                      {% endif %}
+                      <p class="font-weight-normal mb-0 mt-0">Department</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                  <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                    <div class="mdc--tile mdc--tile-success rounded">
+                      <i class="material-icons text-white icon-md">school</i>
+                    </div>
+                    <div class="text-wrapper pl-1">
+                         {% if findclass|length != 0%}
+                          <h3 class="mdc-typography--display1 font-weight-bold mb-1">{{ findclass | length }}</h3>
+                         {% else %}
+                           <h3 class="mdc-typography--display1 font-weight-bold mb-1">0</h3>
+                         {% endif %}
+                           <p class="font-weight-normal mb-0 mt-0">Classes</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                  <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                    <div class="mdc--tile mdc--tile-warning rounded">
+                      <i class="material-icons text-white icon-md">groups</i>
+                    </div>
+                    <div class="text-wrapper pl-1">
+                     {% if app.user.title != "administrator" or app.user.title != "superadmin" %}
+                        <h3 class="mdc-typography--display1 font-weight-bold mb-1">{{ SA }}</h3>
+                      {% else %}
+                          <h3 class="mdc-typography--display1 font-weight-bold mb-1">0</h3>
+                      {% endif %}
+                      <p class="font-weight-normal mb-0 mt-0">Teachers</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
+                  <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                    <div class="mdc--tile mdc--tile-primary rounded">
+                      <i class="material-icons text-white icon-md">persons</i>
+                    </div>
+                    <div class="text-wrapper pl-1">
+                        {% if findstudent | length != 0 %}
+                        <h3 class="mdc-typography--display1 font-weight-bold mb-1">{{ findstudent|length }}</h3>
+                      {% else %}
+                          <h3 class="mdc-typography--display1 font-weight-bold mb-1">0</h3>
+                      {% endif %}
+                      <p class="font-weight-normal mb-0 mt-0">Students</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+              <div class="mdc-card d-flex flex-column">
+                <div class="mdc-layout-grid__inner flex-grow-1">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3"></div>
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10 d-flex align-item-center flex-column">
+                    <h2 class="mdc-card__title mdc-card__title--large text-center mt-2 mb-2">Report Overview</h2>
+                    <div id="currentBalanceCircle" class="w-100">
+                      <div class="mdc-card py-3 pl-2 d-flex flex-row align-item-center">
+                        <i class="material-icons mdc-theme--primary">note</i>
+                        <div class="text-wrapper text-center pl-3">
+                            {% if findsubject != 0 %}
+                              <h3 class="mdc-typography--display1 font-weight-bold mb-1">{{ findsubject }}</h3>
+                            {% else %}
+                               <h3 class="mdc-typography--display1 font-weight-bold mb-1">0</h3>
+                            {% endif %}
+                          <p class="font-weight-normal mb-0 mt-0">Subject Registered</p>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3"></div>
+                </div>
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <section class="mdc-card__action-footer mt-4 bg-red w-100">
+                      <div class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                           {% if above != 0 %}
+                             <h4 class="mdc-theme--primary font-weight-bold mb-1"> {{ above }}</h4> Above 16
+                           {% else %}
+                              <h4 class="mdc-theme--primary font-weight-bold mb-1"><i class="material-icons">update</i></h4> above 16
+                           {% endif %}
+                      </div>
+                       {% if signed != 0 %}
+                           <div class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                                 <h4 class="mdc-theme--primary font-weight-bold mb-1 "> {{ signed }}</h4> Signed CA
+                           </div>
+                      {% endif %}
+                       {% if problem != 0 %}
+                           <div class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                                 <h4 class="mdc-theme--primary font-weight-bold mb-1 "> {{ problem }}</h4>CA Problem
+                           </div>
+                      {% endif %}
+                      <div class="col mdc-button" data-mdc-auto-init="MDCRipple">
+                          {% if below != 0 %}
+                             <h4 class="mdc-theme--primary font-weight-bold mb-1 "> {{ below }}</h4> below 16
+                           {% else %}
+                             <h4 class="mdc-theme--primary font-weight-bold mb-1"><i class="material-icons">update</i></h4> below 16
+                           {% endif %}
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+</div>
+{% endif %}
+{% endblock %}

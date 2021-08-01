@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user %}
+ {% if app.user.title == "administrator" or app.user.title == "superadmin" %}
+      {% include('superuser/adminnavbar.html.twig') %}
+  {% else %}
+    {% include('teacher/teachernavbar.html.twig') %}
+  {% endif %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+      <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                      <p>
+                          Signed CA For
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ cm }} {{year}}</span>
+                       </p>
+                    </section>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+
+            <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Registration No.</th>
+                          <th >Name</th>
+                          <th >Test1 marks/20 </th>
+                          <th >Test2 marks/20</th>
+                          <th > Individual Assignment 1</th>
+                          <th >Individual Assignment 2</th>
+                          <th >Group Work</th>
+                          <th > Total </th>
+                          <th class="text-left">Percentage(%)</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in rt %}
+                            <tr>
+                              <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.regno }}</td>
+                              <td >{{ show.name }}</td>
+                              {% if show.test1 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.test1 }}</td>
+                               {% endif %}
+
+                              {% if show.test2 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.test2 }}</td>
+                              {% endif %}
+
+                              {% if show.individual1 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.individual1 }}</td>
+                               {% endif %}
+
+                               {% if show.individual2 is null %}
+                                 <td >-</td>
+                               {% else %}
+                                 <td >{{ show.individual2 }}</td>
+                               {% endif %}
+
+                               {% if show.group_work is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.group_work }}</td>
+                               {% endif %}
+
+                              <td >{{ show.total }}</td>
+                              <td >{{ show.percent }}</td>
+
+                            </tr>
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                      </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+      </main>
+</div>
+        <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+
+{% endif %}
+
+{% endblock %}

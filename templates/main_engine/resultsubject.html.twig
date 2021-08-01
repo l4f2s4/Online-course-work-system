@@ -1,0 +1,386 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if app.user %}
+   {% if app.user.title == "administrator" or app.user.title == "superadmin" %}
+      {% include('superuser/adminnavbar.html.twig') %}
+  {% else %}
+    {% include('teacher/teachernavbar.html.twig') %}
+  {% endif %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <main class="content-wrapper">
+      {% if rt |length != 0 and app.user.title == 'teacher' %}
+      <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-secondary mr-1">{{ rt |length }}</span>Enter Marks  For Students Taken
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ cm }} {{year}}</span> subject
+                       </p>
+                    </section>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+
+         {% elseif (jt|length != 0) and (rt|length == 0) and (pt|length == 0)  and (app.user.title == 'teacher')%}
+              <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-secondary mr-1">{{  jt |length }}</span>CA  For All Students Taken
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ cm }} {{year}}</span>
+                       </p>
+                    </section>
+
+                  </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                     <section class="purchase__card_section">
+                            <span class="badge bg-danger mr-1">{{  belowca }}</span>  below ca
+                     </section>
+                  </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                     <section class="purchase__card_section">
+                                  <span class="badge bg-primary mr-1">{{ aboveca }}</span>  above ca
+                     </section>
+                  </div>
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                     <section class="purchase__card_section">
+                                   <a href="/publish/{{ cm }}/{{id}}/{{year}}" class="mdc-button mdc-button--raised success-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                        Publish Result
+                                    </a>
+                     </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+       {% elseif (pt |length != 0 ) and (rt |length == 0) and (jt|length == 0) %}
+              <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-secondary mr-1">{{  pt |length }}</span>CA  For All Students Taken
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ cm }} {{year}}</span> Published
+                       </p>
+                    </section>
+
+                  </div>
+                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                     <section class="purchase__card_section">
+                            <span class="badge bg-danger mr-1">{{  belowca }}</span>   below ca
+                     </section>
+                  </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                     <section class="purchase__card_section">
+                                  <span class="badge bg-primary mr-1">{{ aboveca }}</span>  above ca
+                     </section>
+                  </div>
+                  {% if app.user.title=="teacher" %}
+                   {% if srt != 0 %}
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+                     <section class="purchase__card_section">
+                                   <a href="/published/ca/result/student/signed/out/{{id}}/{{year}}" class="mdc-button mdc-button--raised success-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                        View Signed CA
+                                    </a>
+                     </section>
+                  </div>
+                  {% endif %}
+                  {% if prt != 0 %}
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3">
+                     <section class="purchase__card_section">
+                                   <a href="/published/ca/result/student/out/{{id}}/{{year}}" class="mdc-button mdc-button--raised success-filled-button text-lowercase mb-0" data-mdc-auto-init="MDCRipple">
+                                        View Reported Problem
+                                    </a>
+                     </section>
+                  </div>
+                  {% endif %}
+                  {% for message in app.flashes('network') %}
+                      <div class="alert alert-info alert-dismissible fade show">
+                      {{ message }}
+                      </div>
+                  {% endfor %}
+                 {% endif %}
+                </div>
+              </div>
+            </div>
+            <!--end-->
+        {% else  %}
+              <!-- start -->
+        <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-9">
+                    <section class="purchase__card_section">
+                      <p>
+                          <span class="badge bg-secondary mr-1">0</span>CA  For All Students Taken
+                          <span class="mdc-card__title mdc-card__title--middle text-red text-uppercase "> {{ cm }} {{year}}</span>
+                       </p>
+                    </section>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end-->
+            {% endif %}
+
+                    <!-- message action -->
+          <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-6-desktop">
+                          <p class="align-item-center text-red">
+                                {% for messages in app.flashes('subjectmark') %}
+                                    {{ messages}}
+                               {% endfor %}
+                          </p>
+            </div>
+                    <!-- end message action -->
+            {% if rt | length != 0 and app.user.title == 'teacher' %}
+            <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Registration No.</th>
+                          <th >Name</th>
+                          <th >Test1  </th>
+                          <th >Test2 </th>
+                          <th > Individual Assignment 1</th>
+                          <th >Individual Assignment 2</th>
+                          <th >Group Work</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in rt %}
+
+                            <tr>
+                              <form action="/result/action/{{show.id}}/{{show.ID}}/{{year}}" method="post">
+                              <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.regno }}</td>
+                              <td >{{ show.name }}</td>
+                               <td>
+                                     <input type="number" name="test1" class="form-control" />
+                               </td>
+                                <td >
+                                    <input type="number" name="test2" class="form-control" />
+                                 </td>
+                                <td >
+                                      <input type="number" name="individual1" class="form-control" />
+                                </td>
+                                 <td >
+                                    <input type="number" name="individual2" class="form-control" />
+                                  </td>
+                                <td >
+                                    <input type="number" name="group_work" class="form-control" />
+                                </td>
+                               <td>
+                                 <button type="submit" class="mdc-button mdc-button--raised primary-filled-button text-lowercase mt-2" data-mdc-auto-init="MDCRipple">Add</button>
+                               </td>
+                               </form>
+                            </tr>
+
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                      </div>
+                 </div>
+              </div>
+            </div>
+
+            {% elseif (jt |length != 0 ) and (rt |length == 0) and ( pt|length == 0)  and (app.user.title == 'teacher') %}
+             <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Registration No.</th>
+                          <th >Name</th>
+                          <th >Test1 </th>
+                          <th >Test2</th>
+                          <th > Individual Assignment 1</th>
+                          <th >Individual Assignment 2</th>
+                          <th >Group Work</th>
+                          <th > Total </th>
+                          <th class="text-left">Percentage(%)</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in jt %}
+                              <tr>
+                              <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.regno }}</td>
+                              <td >{{ show.name }}</td>
+                              {% if show.test1 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.test1 }}</td>
+                               {% endif %}
+
+                              {% if show.test2 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.test2 }}</td>
+                              {% endif %}
+
+                              {% if show.individual1 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.individual1 }}</td>
+                               {% endif %}
+
+                               {% if show.individual2 is null %}
+                                 <td >-</td>
+                               {% else %}
+                                 <td >{{ show.individual2 }}</td>
+                               {% endif %}
+
+                               {% if show.group_work is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.group_work }}</td>
+                               {% endif %}
+
+                              <td >{{ show.total }}</td>
+                              <td >{{ show.percent }}</td>
+
+                              <td><a href="/dashboard/update/student/marks/{{show.id}}/{{cm}}/{{year}}" class="col mdc-button" data-mdc-auto-init="MDCRipple"><i class="material-icons text-blue">edit</i></a></td>
+                            </tr>
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                      </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+            {% elseif (pt |length != 0 ) and (rt |length == 0) and ( jt|length == 0) %}
+               <!--start table-->
+           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+             <div class="mdc-card table-responsive" style="display:block;overflow-x:scroll;">
+                <div class="card" style="padding-top:3%;">
+                 <div class="card-body">
+                    <table id="zero_config" class="table table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-left">Registration No.</th>
+                          <th >Name</th>
+                          <th >Test1 </th>
+                          <th >Test2</th>
+                          <th > Individual Assignment 1</th>
+                          <th >Individual Assignment 2</th>
+                          <th >Group Work</th>
+                          <th > Total </th>
+                          <th class="text-left">Percentage(%)</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                       {% for temp,show in pt %}
+                            <tr>
+                              <td>{{ temp +1 }}</td>
+                              <td class="text-left">{{ show.regno }}</td>
+                              <td >{{ show.name }}</td>
+                              {% if show.test1 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.test1 }}</td>
+                               {% endif %}
+
+                              {% if show.test2 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.test2 }}</td>
+                              {% endif %}
+
+                              {% if show.individual1 is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.individual1 }}</td>
+                               {% endif %}
+
+                               {% if show.individual2 is null %}
+                                 <td >-</td>
+                               {% else %}
+                                 <td >{{ show.individual2 }}</td>
+                               {% endif %}
+
+                               {% if show.group_work is null %}
+                                <td >-</td>
+                              {% else %}
+                                <td >{{ show.group_work }}</td>
+                               {% endif %}
+
+                              <td >{{ show.total }}</td>
+                              <td >{{ show.percent }}</td>
+
+                            </tr>
+                       {% endfor %}
+                        </tbody>
+                      </table>
+                 </div>
+                 </div>
+              </div>
+            </div>
+            <!--end table -->
+            {% else %}
+            {% if app.user.title == 'teacher' %}
+             <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card " style="background:transparent;">
+                      <p class="pl-3 text-center mt-3 mb-3">
+                         No student registered to take <span class="text-uppercase text-red">{{cm}}</span> tell them to register
+                       </p>
+               </div>
+             </div>
+             {% else %}
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+               <div class="mdc-card " style="background:transparent;">
+                      <p class="pl-3 text-center mt-3 mb-3">
+                         No result published for <span class="text-uppercase text-red">{{cm}}</span>
+                       </p>
+               </div>
+             </div>
+             {% endif %}
+            <!--end-->
+
+            {% endif %}
+            <!--end table -->
+      </main>
+</div>
+        <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+
+{% endif %}
+
+{% endblock %}

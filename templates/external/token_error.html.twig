@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <!-- start main page -->
+      <main class="content-wrapper">
+       <!-- Profile intro -->
+         <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8">
+                    <section class="purchase__card_section">
+                        <p>
+                       <i class="badge bg-danger mr-1">Alert</i>  <span class="text-lowercase text-red bold"> Incorrect Token Provided Or had been Expired.</span>
+                      </p>
+                    </section>
+                  </div>
+                     <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                     <section class="purchase__card_section">
+                          <a href="{{path('main_engine')}}" class="mdc-button mdc-button--raised primary-filled-button  mb-0" data-mdc-auto-init="MDCRipple">
+                                Back Home
+                          </a>
+                     </section>
+                   </div>
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                    <section class="purchase__card_section">
+                      <p>
+                       <i class="badge bg-danger mr-1">Invalid token</i>
+                      </p>
+                    </section>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+           </div>
+       <!-- end intro -->
+      </main>
+      <!-- end main page -->
+  </div>
+{% endblock %}

@@ -1,0 +1,89 @@
+  <div class="body-wrapper">
+    <!-- partial:partials/_sidebar.html -->
+    <aside class="mdc-persistent-drawer mdc-persistent-drawer--open">
+      <nav class="mdc-persistent-drawer__drawer">
+        <div class="mdc-persistent-drawer__toolbar-spacer">
+           <h2 class="brand-logo">
+                <i class="material-icons mr-0">language</i>
+              <i class="material-icons mdc-theme--primary mr-1">OCSS</i>
+					</h2>
+        </div>
+        <div class="mdc-list-group">
+          <nav class="mdc-list mdc-drawer-menu">
+            <div class="mdc-list-item mdc-drawer-item">
+              <a  class="mdc-drawer-link" href="{{path('dashboard_engine')}}">
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i>
+                Dashboard
+              </a>
+            </div>
+
+            <div class="mdc-list-item mdc-drawer-item" href="#" data-toggle="expansionPanel" target-panel="sample-page-submenu">
+              <a class="mdc-drawer-link" href="#">
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pages</i>
+                Academic area
+                <i class="mdc-drawer-arrow material-icons">arrow_drop_down</i>
+              </a>
+              <div class="mdc-expansion-panel" id="sample-page-submenu">
+                <nav class="mdc-list mdc-drawer-submenu">
+
+                  <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link" href="{{path('teach')}}">
+                      Subject
+                    </a>
+                  </div>
+
+                  <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link" href="{{ path('add_result') }}">
+                      Result
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="mdc-list-item mdc-drawer-item purchase-link">
+              <a href="{{path('app_password')}}" class="mdc-button mdc-button--raised mdc-button--dense mdc-drawer-link" data-mdc-auto-init="MDCRipple">
+                Change password
+              </a>
+            </div>
+          </nav>
+        </div>
+      </nav>
+    </aside>
+    <!-- partial -->
+    <!-- partial:partials/_navbar.html -->
+    <header class="mdc-toolbar mdc-elevation--z4 mdc-toolbar--fixed">
+      <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+          <a href="#" class="menu-toggler material-icons mdc-toolbar__menu-icon">menu</a>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+          <div class="mdc-menu-anchor">
+                     {% if  app.user.userimage| length !=0 %}
+                            <img src="{{ asset('/web/uploads/photos/' ~ app.user.userimage) }}"  style="border-radius:50%;height:50px;"  alt="not found"  />
+                      {% else %}
+                             <img   src="/images/index.png" style="border-radius:50%;height:50px;" alt="...">
+                      {% endif %}
+           </div>
+          <div class="mdc-menu-anchor mr-1">
+            <a href="#" class="mdc-toolbar__icon toggle mdc-ripple-surface" data-toggle="dropdown" toggle-dropdown="logout-menu" data-mdc-auto-init="MDCRipple">
+              <i class="material-icons">more_vert</i>
+            </a>
+            <div class="mdc-simple-menu mdc-simple-menu--right" tabindex="-1" id="logout-menu">
+                <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+                  <li class="mdc-list-item" role="menuitem" tabindex="0">
+                  <a href="{{path('my_profile')}}" class="btn" style="background:transparent;">
+                    <i class="material-icons mdc-theme--primary mr-1">MY</i>
+                    profile
+                    </a>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem" tabindex="0">
+                    <a href="{{path('app_logout')}}" class="btn" style="background:transparent;"><i class="material-icons mdc-theme--primary mr-1">power_settings_new</i>
+                    Logout</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </header>
+    <!-- partial -->

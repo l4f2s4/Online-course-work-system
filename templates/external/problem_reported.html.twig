@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <div class="page-wrapper mdc-toolbar-fixed-adjust">
+      <!-- start main page -->
+      <main class="content-wrapper">
+       <!-- Profile intro -->
+         <div class="mdc-layout-grid">
+          <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+                <div class="mdc-layout-grid__inner">
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10">
+                    <section class="purchase__card_section">
+                      <p>
+                       <i class="badge bg-primary mr-1">Form</i>  <span class="text-lowercase text-center bold">{{ regno }} Feel free to report anything</span>
+                      </p>
+                    </section>
+                  </div>
+                  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-2">
+                    <section class="purchase__card_section">
+                      <p>
+                       <i class="badge bg-danger mr-1">Problem Report</i>
+                      </p>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+       <!-- end intro -->
+          <!-- start form -->
+             <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+              <div class="mdc-card">
+               <section class="mdc-card__supporting-text">
+               <!-- form start -->
+                <form  action="/result/disc/{{token}}" method="post" class="mt-5">
+                  <div class="mdc-layout-grid__inner">
+                    <!--problem field -->
+                   <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-5-desktop">
+                      <div class="mdc-text-field mdc-text-field--box text-secondary w-100" >
+                             <select  class="mdc-text-field__input" id="problem" name="problem">
+                                  <option  value="" selected>Select Problem</option>
+                                  <option value="Incorrect test1 marks">Incorrect test1 marks</option>
+                                  <option value="Incorrect test2 marks">Incorrect test2 marks</option>
+                                  <option value="Incorrect individual1 assignment marks">Incorrect individual1 assignment marks</option>
+                                  <option value="Incorrect individual2 assignment marks">Incorrect individual2 assignment marks</option>
+                                  <option value="Incorrect groupworks marks">Incorrect groupworks marks</option>
+                             </select>
+                        </div>
+                   </div>
+                    <!-- submit action -->
+                     <div class="mdc-layout-grid__cell  mdc-layout-grid__cell--span-3-desktop">
+                          <p class="align-item-center">
+                                   <button type="submit" class="mdc-button mdc-button--raised secondary-filled-button text-lowercase mb-0 mt-2" data-mdc-auto-init="MDCRipple">
+                                        Submit
+                                    </button>
+                               </p>
+                     </div>
+                    <!-- end submit action -->
+                   </form>
+                   </section>
+                  </div>
+                </div>
+      </main>
+      <!-- end main page -->
+  </div>
+{% endblock %}
